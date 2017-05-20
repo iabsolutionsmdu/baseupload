@@ -1,0 +1,14 @@
+
+up vote
+2
+down vote
+Yes it is. You have to make a form where the user selects the fields they want to export, I'm thinking in a checkbox list where you list all the posible database fields the can get, and then create the query according the user selection. Ej:
+
+<form action="" method="post">
+    <label><input name="fields[]" type="checkbox" value="name"> Username</label>
+    <label><input name="fields[]" type="checkbox" value="birthdate"> Birthdate</label>
+</form>
+And then on the server side create the database query.
+
+$sql = "SELECT `". implode("`, `", $_POST["fields"]) ."` FROM db_table";
+Hope this help.

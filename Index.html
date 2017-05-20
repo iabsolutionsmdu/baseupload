@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+
+<head>
+    <title>IAB Base</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="contents/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="~/Scripts/html5shiv.min.js"></script>
+        <script src="~/Scripts/respond.min.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+        <script src="~/Scripts/excanvas.js"></script>
+        
+    <![endif]-->
+
+    <style>
+        body {
+            padding-top: 70px;
+            /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+        }
+        /* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba( 255, 255, 255, .8) url('http://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
+        }
+        /* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+        
+        body.loading {
+            overflow: hidden;
+        }
+        /* Anytime the body has the loading class, our
+   modal element will be visible */
+        
+        body.loading .modal {
+            display: block;
+        }
+    </style>
+    <script>
+      var fileApp = angular.module('fileListApp', []);
+      fileApp.controller('ddlFileList', function ($scope, $http){
+        $http.get('getfilelist.php').success(function(data) {
+          $scope.fnames = data;
+        });
+      });
+    </script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-default  navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                <a class="navbar-brand" href="index.html">IAB</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+
+                    <!--<li class="dropdown">
+                            <a class="dropdown-toggle " data-toggle="dropdown" href="#" >Master
+                            <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Shift</a></li>
+                                <li><a href="#">Product</a></li>
+                                <li><a href="#">Employee</a></li>
+                            </ul>
+                        </li>-->
+                    <li class="active">
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                         <a href="newreport.html" >Reports</a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="panel panel-default" >
+                    <div class="panel-heading">Upload Base</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <form role="form" name="frminsert" method="post" action="processbase.php" enctype="multipart/form-data">
+                                <!--<div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" value="lessno" name="chkino" id="chkino">
+                                        Exclude Invalid Number (Mobile number less than 10 digits)
+                                    </label>
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" value="invstno" name="chkstno" id="chkstno">
+                                       Exclude Invalid Number (Mobile number Starting other than 7 /  8 /  9)
+                                    </label>
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" value="dupno" name="chkdupno" id="chkdupno">
+                                       Exclude Duplicate Number 
+                                    </label>
+                                </div>-->
+                                <br>
+                                <label for="file" class="control-label">Filename:
+                                    <input type="file" name="file" id="file" class="form-control" accept=".csv" required aria-required="true"><br>
+                                    <input type="submit" name="submit" value="Submit" class="btn btn-default">
+                                    </label>
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-success" >
+                    <div class="panel-heading">Download Base</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <table id="dtdownload" class="display" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Base Name</th>
+                                        <th>Available Numbers</th>
+                                        <th>Duplicate Numbers (count)</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-info" style="padding">
+                    <div class="panel-heading">Update Feedback</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+
+                            <form role="form" name="frmupdate" action="upload_feedback.php" method="post" enctype="multipart/form-data">
+                                <div ng-app="fileListApp" ng-controller="ddlFileList">
+                                    <label for="select" class="control-label"> Select Base:
+                                    <select name="ddlbase" id="ddlbase" required aria-required="true">
+                                        <option value = "" label = "Please Select"></option>
+                                        <option ng-repeat="n in fnames" value="{{n.fname}}"
+                                                    ng-selected="{{ n.Selected == true }}">
+                                            {{n.fname}}
+                                        </option>
+                                    </select>
+                                    </label>
+                                    <input type="hidden" name="hdnbasename" id="hdnbasename"/>
+                                </div>
+                                <label for="file" class="control-label">Filename:
+                                    <input type="file" name="file1" id="file1" class="form-control" accept=".csv" required aria-required="true"><br>
+                                    <input type="submit" name="submit" value="Submit" class="btn btn-default">
+                                    </label>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal">
+        <!-- Place at bottom of page -->
+    </div>
+    <script type="text/javascript">
+    $body = $("body");
+
+$(document).on({
+    ajaxStart: function() { $body.addClass("loading");    },
+     ajaxStop: function() { $body.removeClass("loading"); }    
+});
+                            $(document).ready(function(){
+
+
+                                function validate() {
+                                    if (document.getElementById("ddlbase").value == "") {
+                                        alert("Please select value"); // gives alert to user select any value
+                                        document.getElementById("select").focus(); //set focus back to control
+                                        return false;
+                                    }
+                                }
+
+                                $('#ddlbase').on('change',function(){
+                                    $('#hdnbasename').val($(this).val());
+                                    
+                                    //alert($(this).val());
+                                });
+
+
+                                
+                                var table= $('#dtdownload').DataTable( {
+                                      "processing": true,
+                                      "serverSide": true,
+                                      "ajax": {
+                                            "url": "loadData.php",
+                                            "dataType": "json",
+                                            "cache": false,
+                                            "contentType": "application/json; charset=utf-8",
+                                            "dataSrc":""
+                                                                },
+                                    "columns": [
+                                        { "data": "base_name" },
+                                        { "data": "totalnumbers" },
+                                        { "data": "totalduplicates" }
+                                    ]
+                                } );
+                                $('#dtdownload tbody').on('click', 'tr', function () {
+                                 var obj = $(this).children("td").map(function() {
+                                                        return $(this).text();
+                                                    }).get();
+
+                                alert(obj[0]);
+
+                               document.location.href = 'testdownload.php?args=' + obj[0];
+
+                                  
+                                });
+                            });//end of docready
+                            </script>
+
+
+</body>
+
+</html>

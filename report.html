@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+
+<head>
+    <title>IAB Base</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="contents/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js">
+    </script>
+<script type="text/javascript" language="javascript" src="//cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js">
+</script>
+<script type="text/javascript" language="javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js">
+</script>
+<script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js">
+</script>
+<script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js">
+</script>
+<script type="text/javascript" language="javascript" src="//cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js">
+</script>
+<script type="text/javascript" language="javascript" src="//cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js">
+</script>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="~/Scripts/html5shiv.min.js"></script>
+        <script src="~/Scripts/respond.min.js"></script>
+    <![endif]-->
+<!--[if lt IE 8]>
+        <script src="~/Scripts/excanvas.js"></script>
+        
+    <![endif]-->
+
+<style>
+        body {
+            padding-top: 70px;
+            /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+        }
+        /* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba( 255, 255, 255, .8) url('http://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
+        }
+        /* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+        
+        body.loading {
+            overflow: hidden;
+        }
+        /* Anytime the body has the loading class, our
+   modal element will be visible */
+        
+        body.loading .modal {
+            display: block;
+        }
+        tfoot input {
+  width: 100%;
+}
+    </style>
+<script>
+    var fileApp = angular.module('fileListApp', []);
+    fileApp.controller('ddlFileList', function ($scope, $http) {
+        $http.get('getfilelist.php').success(function (data) {
+            $scope.fnames = data;
+        });
+    });
+</script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-default  navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                <a class="navbar-brand" href="Index.html">IAB</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+
+                 
+                    <li>
+                        <a href="Index.html">Home</a>
+                       
+                    </li>
+                    <li class="active">
+                         <a href="report.html" >Reports</a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <div class="container">
+        <div class="row">
+
+
+            <div class="col-lg-12">
+                <div class="panel panel-success">
+                    <div class="panel-heading">Feedback Report</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="fdate">From Date:
+                                <input type="text" name="fdt" id="fdt" />
+                                </label>
+                            <label for="tdate">To Date:
+                                <input type="text" name="tdt" id="tdt" />
+                                </label>
+                            <button name="btnsearch" id="btnsearch">Search</button>
+                        </div>
+                        <div class="form-group">
+                            <table id="dtdownload" class="table col-lg-8" cellspacing="0" style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th>Base Name</th>
+                                        <th>Customer Number</th>
+                                        <th>Customer Name</th>
+                                        <th>State</th>
+                                        <th>Dialed Campaign</th>
+                                        <th>Dialed Date</th>
+                                        <th>Feedback</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Base</th>
+                                        <th>Number</th>
+                                        <th>Name</th>
+                                        <th>State</th>
+                                        <th>Campaign</th>
+                                        <th>Date</th>
+                                        <th>Feedback</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="modal">
+        <!-- Place at bottom of page -->
+    </div>
+    <script type="text/javascript">
+        $body = $("body");
+
+        $(document).on({
+            ajaxStart: function () { $body.addClass("loading"); },
+            ajaxStop: function () { $body.removeClass("loading"); }
+        });
+
+
+        $(document).ready(function () {
+            $(function () {
+                $("#fdt").datepicker({
+                    numberOfMonths: 1,
+                    dateFormat: 'dd-M-y',
+                    onSelect: function (selected) {
+                        var dt = new Date(selected);
+                        dt.setDate(dt.getDate() + 1);
+                        $("#tdt").datepicker("option", "minDate", dt);
+                    }
+                });
+                $("#tdt").datepicker({
+                    numberOfMonths: 1,
+                    dateFormat: 'dd-M-y',
+                    onSelect: function (selected) {
+                        var dt = new Date(selected);
+                        dt.setDate(dt.getDate() - 1);
+                        $("#fdt").datepicker("option", "maxDate", dt);
+                    }
+                });
+            });
+
+
+
+
+            var table = $('#dtdownload').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'csv', 'print'
+                ],
+                "bAutoWidth" : false,
+                data: [],
+                "columns": [
+                    { "data": "basename" },
+                    { "data": "mblno" },
+                    { "data": "custname" },
+                    { "data": "state" },
+                    { "data": "campaign" },
+                    { "data": "dialdate" },
+                    { "data": "feedback" }
+                ]
+            });
+
+            $('#dtdownload tfoot th').each(function () {
+                var title = $(this).text();
+                $(this).html('<input type="text" placeholder="' + title + '" width="150px" />');
+            });
+
+            $('#btnsearch').on('click', function () {
+                var obj = new Object();
+                obj.fdt = $('#fdt').val();
+                obj.tdt = $('#tdt').val();
+                data1 = { 'data': JSON.stringify(obj) };
+                $.ajax({
+                    url: "report.php",
+                    type: "post",
+                    dataType: 'json',
+                    data: data1
+                }).done(function (result) {
+
+                    table.clear().draw();
+                    table.rows.add(result).draw();
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    // needs to implement if it fails
+                });
+            })
+
+            // Apply the search
+            table.columns().every(function () {
+                var that = this;
+
+                $('input', this.footer()).on('keyup change', function () {
+                    if (that.search() !== this.value) {
+                        that
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+
+
+
+        });//end of docready
+</script>
+
+
+</body>
+
+</html>

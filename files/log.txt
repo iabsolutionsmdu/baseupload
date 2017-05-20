@@ -1,0 +1,18 @@
+[12-Apr-2017 12:36:02 Asia/Kolkata] PHP Fatal error:  Allowed memory size of 52428800 bytes exhausted (tried to allocate 4096 bytes) in D:\iab\phpExcel\getfieldslist.php on line 47
+[12-Apr-2017 12:51:11 Asia/Kolkata] PHP Fatal error:  Allowed memory size of 52428800 bytes exhausted (tried to allocate 4096 bytes) in D:\iab\phpExcel\getfieldslist.php on line 47
+[17-Apr-2017 10:36:31 Asia/Kolkata] PHP Fatal error:  Allowed memory size of 52428800 bytes exhausted (tried to allocate 20480 bytes) in D:\iab\phpExcel\getfieldslist.php on line 49
+[17-Apr-2017 10:38:44 Asia/Kolkata] PHP Fatal error:  Allowed memory size of 52428800 bytes exhausted (tried to allocate 528384 bytes) in D:\iab\phpExcel\getfieldslist.php on line 49
+[17-Apr-2017 10:39:25 Asia/Kolkata] PHP Fatal error:  Allowed memory size of 52428800 bytes exhausted (tried to allocate 20480 bytes) in D:\iab\phpExcel\getfieldslist.php on line 49
+[17-Apr-2017 10:40:29 Asia/Kolkata] PHP Fatal error:  Allowed memory size of 52428800 bytes exhausted (tried to allocate 20480 bytes) in D:\iab\phpExcel\getfieldslist.php on line 49
+[18-Apr-2017 11:17:35 Asia/Kolkata] PHP Fatal error:  Allowed memory size of 52428800 bytes exhausted (tried to allocate 20480 bytes) in D:\iab\phpExcel\getfieldslist.php on line 49
+[19-Apr-2017 10:15:26 Asia/Kolkata] PHP Fatal error:  Allowed memory size of 52428800 bytes exhausted (tried to allocate 20480 bytes) in D:\iab\phpExcel\getfieldslist.php on line 49
+[19-Apr-2017 11:53:58 Asia/Kolkata] PHP Fatal error:  Allowed memory size of 52428800 bytes exhausted (tried to allocate 20480 bytes) in D:\iab\phpExcel\getfieldslist.php on line 49
+[02-May-2017 06:12:17 UTC] PHP Fatal error:  Allowed memory size of 262144000 bytes exhausted (tried to allocate 32343957 bytes) in C:\wamp\www\baseupload\getfieldslist.php on line 51
+[02-May-2017 06:12:17 UTC] PHP Stack trace:
+[02-May-2017 06:12:17 UTC] PHP   1. {main}() C:\wamp\www\baseupload\getfieldslist.php:0
+[02-May-2017 06:12:17 UTC] PHP   2. json_encode() C:\wamp\www\baseupload\getfieldslist.php:51
+[03-May-2017 04:54:56 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)' in C:\wamp\www\baseupload\upload_feedback.php:29
+Stack trace:
+#0 C:\wamp\www\baseupload\upload_feedback.php(29): PDO->__construct('mysql:host=loca...', 'root', 'root')
+#1 {main}
+  thrown in C:\wamp\www\baseupload\upload_feedback.php on line 29
